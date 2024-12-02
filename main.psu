@@ -1,0 +1,57 @@
+// Define a structure for Memory Block
+STRUCT MemoryBlock:
+    INTEGER blockID
+    INTEGER size
+    STRING status // "allocated" or "deallocated"
+    STRING location
+    INTEGER rank
+
+// Initialize memory blocks
+INITIALIZE memoryBlocks AS LIST OF MemoryBlock
+// Populate memoryBlocks with initial data
+memoryBlocks = [
+    MemoryBlock(1, 1024, "deallocated", "0x1000", 3),
+    MemoryBlock(2, 512, "allocated", "0x2000", 5),
+    MemoryBlock(3, 2048, "deallocated", "0x3000", 2),
+    MemoryBlock(4, 256, "allocated", "0x4000", 6),
+    MemoryBlock(5, 4096, "deallocated", "0x5000", 1)
+]
+
+// Function to handle memory allocation request
+FUNCTION allocateMemory(requestedSize):
+    PRINT "Requesting allocation for size:", requestedSize
+
+    // Step 1: Data Request
+    availableBlocks = FILTER(memoryBlocks, block.status == "deallocated")
+
+    // Step 2: Initialize NN Algorithm
+    FOR EACH block IN availableBlocks:
+        block.distance = ABS(block.size - requestedSize) // Calculate distance based on size
+
+    // Step 3: Rank the blocks based on proximity to requested size
+    SORT availableBlocks BY block.distance ASCENDING
+
+    // Step 4: Initialize the memory table
+    memoryTable = CREATE_TABLE(availableBlocks)
+
+    // Step 5: Allocate Memory
+    IF LENGTH(availableBlocks) > 0 THEN:
+        selectedBlock = availableBlocks[0] // Select the nearest block
+        selectedBlock.status = "allocated"
+        selectedBlock.size = selectedBlock.size - requestedSize // Update size
+        PRINT "Allocated memory at location:", selectedBlock.location
+    ELSE:
+        PRINT "No available memory block for allocation."
+
+    // Step 6: Cache Management
+    CACHE_MEMORY_TABLE(memoryTable) // Store updated memory table in cache
+
+// Function to cache memory table
+FUNCTION CACHE_MEMORY_TABLE(memoryTable):
+    // Implement caching mechanism based on historical access patterns
+    PRINT "Memory table cached for quick access."
+
+// Main execution loop
+WHILE TRUE:
+    requestedSize = GET_USER_INPUT("Enter size to allocate:")
+    allocateMemory(requestedSize)
