@@ -85,4 +85,4 @@ Execute the main script to test memory allocation:
 - Optimize algorithm implementations for larger-scale memory systems.
 
 ## Result
-<img src="https://github.com/user-attachments/assets/d96db281-3283-4764-918a-0a82e53e3ae1" width="500" height="600">
+<img src="https://github.com/user-attachments/assets/d96db281-3283-4764-918a-0a82e53e3ae1" width="1000" height="500">
