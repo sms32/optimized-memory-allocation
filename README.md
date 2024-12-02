@@ -71,3 +71,18 @@ Memory allocation inefficiencies, such as internal and external fragmentation, i
    ```bash
    git clone https://github.com/sms32/optimized-memory-allocation
    cd optimized-memory-allocation
+
+2. **Run the Simulation**
+Execute the main script to test memory allocation:
+```
+   python main.py
+```
+
+## Future Enhancements
+
+- Incorporate machine learning for adaptive algorithm selection based on workload.
+- Expand the simulation to include real-world data sets and memory management scenarios.
+- Optimize algorithm implementations for larger-scale memory systems.
+
+## Result
+<img src="https://github.com/user-attachments/assets/d96db281-3283-4764-918a-0a82e53e3ae1">
